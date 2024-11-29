@@ -1,0 +1,35 @@
+log_dir: "Checkpoint"
+mixed_precision: "fp16"
+data_folder: ["/workspace/ai/jhyoo/PL-BERT-DATASET/Result/sound_ko/sound_ko.processed", "/workspace/ai/jhyoo/PL-BERT-DATASET/Result/book_ko/book_ko.processed"]
+# data_folder: ["/workspace/ai/mart/Speech/TTS/PL-BERT_kor/sound_ko/sound_ko.processed", "/workspace/ai/mart/Speech/TTS/PL-BERT_kor/book_ko/book_ko.processed"]
+
+# batch_size: 192
+batch_size: 256
+save_interval: 5000
+log_interval: 10
+num_process: 4 # number of GPUs
+num_steps: 1000000
+
+dataset_params:
+    tokenizer: 'kakaobrain/kogpt' # kakaobrain/kogpt
+    revision: 'KoGPT6B-ryan1.5b-float16' # float32 version: revision=KoGPT6B-ryan1.5b
+    sep_token: '[SEP]'
+    token_separator: " " # token used for phoneme separator (space)
+    token_mask: "M" # token used for phoneme mask (M)
+    word_separator: 6 # [SEP], special toekn으로 등록
+    token_maps: "/workspace/ai/jhyoo/PL-BERT-DATASET/Result/token_maps.pkl" # token map path
+    
+    max_mel_length: 512 # max phoneme length
+    
+    word_mask_prob: 0.15 # probability to mask the entire word
+    phoneme_mask_prob: 0.1 # probability to mask each phoneme
+    replace_prob: 0.2 # probablity to replace phonemes
+    
+model_params:
+    vocab_size: 179
+    hidden_size: 768
+    num_attention_heads: 12
+    intermediate_size: 2048
+    max_position_embeddings: 512
+    num_hidden_layers: 12
+    dropout: 0.1
