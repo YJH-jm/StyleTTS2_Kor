@@ -144,8 +144,6 @@ def main(config_path="Configs/config_ko.yml"):
     
     # load data
     train_list, val_list = get_data_path_list(train_path, val_path)
-    train_list = train_list[:8]
-    val_list = val_list[:4]
     train_dataloader = build_dataloader(train_list,
                                         root_path,
                                         OOD_data=OOD_data,
