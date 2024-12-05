@@ -47,7 +47,8 @@ class TextCleaner:
                 print("000000000000000000000000000000000000000000000000000000000000000000000000000000", char)
         return indexes
 
-seed = 1
+# seed = 1
+seed = 1234
 np.random.seed(seed)
 random.seed(seed)
 
