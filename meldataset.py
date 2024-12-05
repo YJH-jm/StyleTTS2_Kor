@@ -48,7 +48,8 @@ class TextCleaner:
         return indexes
 
 # seed = 1
-seed = 1234
+# seed = 1234
+seed = 0
 np.random.seed(seed)
 random.seed(seed)
 
