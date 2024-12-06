@@ -49,7 +49,7 @@ class TextCleaner:
 
 # seed = 1
 # seed = 1234
-seed = 0
+seed = 46
 np.random.seed(seed)
 random.seed(seed)
 
