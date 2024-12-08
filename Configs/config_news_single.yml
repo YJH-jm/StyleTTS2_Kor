@@ -82,8 +82,7 @@ model_params:
       std: 1.0
   
 loss_params:
-    # lambda_mel: 5. # mel reconstruction loss
-    lambda_mel: 10. # mel reconstruction loss
+    lambda_mel: 5. # mel reconstruction loss
 
     lambda_gen: 1. # generator loss
     lambda_slm: 1. # slm feature matching loss
