@@ -507,8 +507,10 @@ class Decoder(nn.Module):
             if N_down:
                 N = nn.functional.conv1d(N.unsqueeze(1), torch.ones(1, 1, N_down).to('cuda'), padding=N_down//2).squeeze(1)  / N_down
 
-        
+        print("test")
+        print(F0_curve.shape, F0_curve.unsqueeze(1).shape)
         F0 = self.F0_conv(F0_curve.unsqueeze(1))
+        print()
         N = self.N_conv(N.unsqueeze(1))
         
         x = torch.cat([asr, F0, N], axis=1)

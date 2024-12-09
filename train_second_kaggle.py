@@ -137,6 +137,8 @@ def main(config_path):
     optimizer_params = Munch(config['optimizer_params'])
     
     train_list, val_list = get_data_path_list(train_path, val_path)
+    train_list = train_list[:12]
+    val_list = val_list[:8]
     device = 'cuda'
 
     train_dataloader = build_dataloader(train_list,
