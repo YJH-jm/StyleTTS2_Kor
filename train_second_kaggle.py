@@ -472,15 +472,16 @@ def main(config_path):
                 loss_gen_all = gl(wav, y_rec).mean()
             else:
                 loss_gen_all = 0
+            ##########################################
             tmp_wav = wav.detach().squeeze()
             if tmp_wav.dim() == 1:
                 tmp_wav = tmp_wav.unsqueeze(0)
-            # loss_lm = wl(wav.detach().squeeze(), y_rec.squeeze()).mean()
+            
             tmp_y_rec =  y_rec.squeeze()
             if tmp_y_rec.dim() == 1:
                 tmp_y_rec = tmp_y_rec.unsqueeze(0)
             loss_lm = wl(tmp_wav, tmp_y_rec).mean()
-
+            # loss_lm = wl(wav.detach().squeeze(), y_rec.squeeze()).mean()
 
             loss_ce = 0
             loss_dur = 0
@@ -757,7 +758,7 @@ def main(config_path):
                     F0_real = F0_real.unsqueeze(0)
                     s = model.style_encoder(gt.unsqueeze(1))
                     real_norm = log_norm(gt.unsqueeze(1)).squeeze(1)
-
+                    print(en.shape, F0_real.shape, real_norm.shape, s.shape)
                     y_rec = model.decoder(en, F0_real, real_norm, s)
 
                     # writer.add_audio('eval/y' + str(bib), y_rec.cpu().numpy().squeeze(), epoch, sample_rate=sr)
