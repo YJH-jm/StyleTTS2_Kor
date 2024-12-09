@@ -134,8 +134,12 @@ class JDCNet(nn.Module):
         # sizes: (b, 31, 722), (b, 31, 2)
         # classifier output consists of predicted pitch classes per frame
         # detector output consists of: (isvoice, notvoice) estimates per frame
-        print("F0_test : ", torch.abs(classifier_out.squeeze()).shape, GAN_feature.shape, poolblock_out.shape)
-        return torch.abs(classifier_out.squeeze()), GAN_feature, poolblock_out
+        
+        output_ = torch.abs(classifier_out.squeeze())
+        if output_.dim() == 1:  # 1D 텐서인지 확인
+            output_ = output_.unsqueeze(0) 
+        print("F0_test : ", output_.shape, GAN_feature.shape, poolblock_out.shape)
+        return output_, GAN_feature, poolblock_out
 
     @staticmethod
     def init_weights(m):
