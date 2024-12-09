@@ -138,7 +138,7 @@ class JDCNet(nn.Module):
         output_ = torch.abs(classifier_out.squeeze())
         if output_.dim() == 1:  # 1D 텐서인지 확인
             output_ = output_.unsqueeze(0) 
-        print("F0_test : ", output_.shape, GAN_feature.shape, poolblock_out.shape)
+        # print("F0_test : ", output_.shape, GAN_feature.shape, poolblock_out.shape)
         return output_, GAN_feature, poolblock_out
 
     @staticmethod
