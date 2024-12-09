@@ -431,7 +431,7 @@ def main(config_path):
             with torch.no_grad():
                 F0_real, _, F0 = model.pitch_extractor(gt.unsqueeze(1))
                 F0 = F0.reshape(F0.shape[0], F0.shape[1] * 2, F0.shape[2], 1).squeeze()
-
+                
                 asr_real = model.text_aligner.get_feature(gt)
 
                 N_real = log_norm(gt.unsqueeze(1)).squeeze(1)
@@ -470,7 +470,15 @@ def main(config_path):
                 loss_gen_all = gl(wav, y_rec).mean()
             else:
                 loss_gen_all = 0
-            loss_lm = wl(wav.detach().squeeze(), y_rec.squeeze()).mean()
+            tmp_wav = wav.detach().squeeze()
+            if tmp_wav.dim() == 1:
+                tmp_wav = tmp_wav.unsqueeze(0)
+            # loss_lm = wl(wav.detach().squeeze(), y_rec.squeeze()).mean()
+            tmp_y_rec =  y_rec.squeeze()
+            if tmp_y_rec.dim() == 1:
+                tmp_y_rec = tmp_y_rec.unsqueeze(0)
+            loss_lm = wl(tmp_wav, tmp_y_rec).mean()
+
 
             loss_ce = 0
             loss_dur = 0
@@ -708,7 +716,10 @@ def main(config_path):
                     s = model.style_encoder(gt.unsqueeze(1))
 
                     y_rec = model.decoder(en, F0_fake, N_fake, s)
-                    loss_mel = stft_loss(y_rec.squeeze(), wav.detach())
+                    tmp_y_rec = y_rec.squeeze()
+                    if tmp_y_rec.dim() == 1:
+                        tmp_y_rec = tmp_y_rec.unsqueeze(0)
+                    loss_mel = stft_loss(tmp_y_rec, wav.detach())
 
                     F0_real, _, F0 = model.pitch_extractor(gt.unsqueeze(1)) 
 
