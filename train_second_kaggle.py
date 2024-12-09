@@ -137,8 +137,8 @@ def main(config_path):
     optimizer_params = Munch(config['optimizer_params'])
     
     train_list, val_list = get_data_path_list(train_path, val_path)
-    train_list = train_list[:12]
-    val_list = val_list[:8]
+    # train_list = train_list[:12]
+    # val_list = val_list[:8]
     device = 'cuda'
 
     train_dataloader = build_dataloader(train_list,
@@ -758,7 +758,7 @@ def main(config_path):
                     F0_real = F0_real.unsqueeze(0)
                     s = model.style_encoder(gt.unsqueeze(1))
                     real_norm = log_norm(gt.unsqueeze(1)).squeeze(1)
-                    print(en.shape, F0_real.shape, real_norm.shape, s.shape)
+                    # print(en.shape, F0_real.shape, real_norm.shape, s.shape)
                     y_rec = model.decoder(en, F0_real, real_norm, s)
 
                     # writer.add_audio('eval/y' + str(bib), y_rec.cpu().numpy().squeeze(), epoch, sample_rate=sr)
