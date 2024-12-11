@@ -47,7 +47,7 @@ class TextCleaner:
                 print("000000000000000000000000000000000000000000000000000000000000000000000000000000", char)
         return indexes
 
-seed = 11
+seed = 52
 # seed = 42
 # seed = 1
 # seed = 1234
