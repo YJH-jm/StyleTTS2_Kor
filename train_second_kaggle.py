@@ -294,6 +294,7 @@ def main(config_path):
                                 sig=slmadv_params.sig
                                )
 
+    print("start_epoch : ", start_epoch)
     for epoch in range(start_epoch, epochs):
         running_loss = 0
         start_time = time.time()
@@ -311,6 +312,7 @@ def main(config_path):
             start_ds = True
 
         for i, batch in enumerate(train_dataloader):
+        
             waves = batch[0]
             batch = [b.to(device) for b in batch[1:]]
             texts, input_lengths, ref_texts, ref_lengths, mels, mel_input_length, ref_mels = batch
@@ -445,7 +447,9 @@ def main(config_path):
 
                 if epoch >= joint_epoch:
                     # ground truth from recording
+                    print("line 447 joint_epoch")
                     wav = y_rec_gt # use recording since decoder is tuned
+                    print("line : ", wav.shape)
                 else:
                     # ground truth from reconstruction
                     wav = y_rec_gt_pred # use reconstruction since decoder is fixed
@@ -527,6 +531,7 @@ def main(config_path):
                 optimizer.step('diffusion')
             
             if epoch >= joint_epoch:
+                print("joint_epoch_train_block")
                 optimizer.step('style_encoder')
                 optimizer.step('decoder')
         
@@ -539,7 +544,8 @@ def main(config_path):
                 if use_ind:
                     ref_lengths = input_lengths
                     ref_texts = texts
-                    
+                
+                print("slm_out before")
                 slm_out = slmadv(i, 
                                  y_rec_gt, 
                                  y_rec_gt_pred, 
@@ -547,6 +553,7 @@ def main(config_path):
                                  mel_input_length,
                                  ref_texts, 
                                  ref_lengths, use_ind, s_trg.detach(), ref if multispeaker else None)
+                print("slm_out after : ", slm_out.shape)
 
                 if slm_out is None:
                     continue
