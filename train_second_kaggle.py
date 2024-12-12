@@ -530,7 +530,6 @@ def main(config_path):
                 optimizer.step('diffusion')
             
             if epoch >= joint_epoch:
-                print("joint_epoch_train_block")
                 optimizer.step('style_encoder')
                 optimizer.step('decoder')
         
