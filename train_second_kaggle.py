@@ -445,11 +445,10 @@ def main(config_path):
                 y_rec_gt = wav.unsqueeze(1)
                 y_rec_gt_pred = model.decoder(en, F0_real, N_real, s)
 
+
                 if epoch >= joint_epoch:
                     # ground truth from recording
-                    print("line 447 joint_epoch")
                     wav = y_rec_gt # use recording since decoder is tuned
-                    print("line : ", wav.shape)
                 else:
                     # ground truth from reconstruction
                     wav = y_rec_gt_pred # use reconstruction since decoder is fixed
@@ -545,7 +544,6 @@ def main(config_path):
                     ref_lengths = input_lengths
                     ref_texts = texts
                 
-                print("slm_out before")
                 slm_out = slmadv(i, 
                                  y_rec_gt, 
                                  y_rec_gt_pred, 
@@ -554,7 +552,6 @@ def main(config_path):
                                  ref_texts, 
                                  ref_lengths, use_ind, s_trg.detach(), ref if multispeaker else None)
                 
-                print("slm_out after : ", slm_out.shape)
 
                 if slm_out is None:
                     continue
