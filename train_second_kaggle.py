@@ -553,6 +553,7 @@ def main(config_path):
                                  mel_input_length,
                                  ref_texts, 
                                  ref_lengths, use_ind, s_trg.detach(), ref if multispeaker else None)
+                
                 print("slm_out after : ", slm_out.shape)
 
                 if slm_out is None:
