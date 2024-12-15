@@ -47,10 +47,10 @@ class TextCleaner:
                 print("000000000000000000000000000000000000000000000000000000000000000000000000000000", char)
         return indexes
 
-seed = 16
+# seed = 16
 # seed = 52
 # seed = 42
-# seed = 1
+seed = 1
 # seed = 1234
 # seed = 46
 np.random.seed(seed)
